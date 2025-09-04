@@ -31,6 +31,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Debug secrets
+        run: |
+          if [ -z "${{ secrets.GCP_SA_KEY }}" ]; then
+            echo "GCP_SA_KEY is empty!"
+            exit 1
+          else
+            echo "GCP_SA_KEY secret exists."
+          fi
+
       - name: Authenticate GCP
         uses: google-github-actions/auth@v2
         with:
